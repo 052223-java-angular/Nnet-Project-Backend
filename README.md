@@ -1,10 +1,12 @@
 # Henok_Nnet_P1
 
-# P1 - Solo Programming eCommerce Project
+# P1 - Neighborhood Net(Nnet) Project
 
 ## Introduction
 
-This is a Neighborhood Watch platform which will be built by using Angular and Java, the website will be designed and developed to help the community by providing different services.
+The Neighborhood Net platform is a website that aims to enhance community safety and support by leveraging Angular and Java technologies for its development. It will serve as a centralized hub for residents to access various services and resources. The website will be designed with user-friendly interfaces and interactive features to encourage community engagement. 
+Users will be able to report suspicious activities, request assistance,find lost and found items,access new businesses, rate and review different resources, get useful contacts list and access information on tips and local events. Additionally, the platform may include features such as neighborhood forums, emergency contact information, and updates from local law enforcement agencies. By utilizing Angular and Java, the website will offer a robust and scalable solution to empower communities and foster a sense of security and cooperation among residents.
+
 
 ## User Stories
 

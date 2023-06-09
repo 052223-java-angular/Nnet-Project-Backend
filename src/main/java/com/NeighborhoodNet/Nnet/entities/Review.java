@@ -30,14 +30,21 @@ public class Review {
     @Column
     private String comment;
 
+    @Column
+    private int likes;
+
+    
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
-    private User user;
+    private User user_id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "post_id")
     @JsonBackReference
-    private Event event;
+    private Post post_id;
+
+
 }

@@ -26,13 +26,13 @@ public class Role {
     @Id
     private String id;
 
-    @Column(name = "role_name" , nullable = false)
-    private String role_name;
+    @Column(nullable = false)
+    private String name;
 
 
     @OneToMany(mappedBy = "role_id", fetch = FetchType.LAZY) // cascade = CascadeType.ALL -> protects records from being orphaned when this table is deleted
     @JsonManagedReference
-    private Set<User> user;
+    private Set<User> users;
 
     
 }

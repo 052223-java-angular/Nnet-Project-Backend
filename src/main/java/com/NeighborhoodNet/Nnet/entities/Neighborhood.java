@@ -31,17 +31,19 @@ public class Neighborhood {
 
 
     @Column(nullable = false)
-    private int zip_code;
+    private int zipCode;
 
+    @Column
+    private int census;
+
+
+    // @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
+    // @JsonManagedReference
+    // private Set<User> user;
 
     @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<User> user;
-
-
-    @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<Resource> resource;
+    private Set<Post> post;
 
 
 

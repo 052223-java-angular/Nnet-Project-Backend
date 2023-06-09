@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Principle {
 
     private String id;
-    private String user_name;
+    private String userName;
     private String role;
     private String token;
 

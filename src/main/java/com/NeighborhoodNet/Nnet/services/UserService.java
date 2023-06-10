@@ -4,10 +4,13 @@ import java.util.Optional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import com.NeighborhoodNet.Nnet.dtos.requests.NewLoginRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewUserRequest;
+import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
 import com.NeighborhoodNet.Nnet.entities.Role;
 import com.NeighborhoodNet.Nnet.entities.User;
 import com.NeighborhoodNet.Nnet.repositories.UserRepository;
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -64,6 +67,24 @@ public class UserService {
 
         // save and return user
         return userRepository.save(newUser);
+    }
+
+
+    public Principal login(NewLoginRequest req){
+        Optional<User> userOpt = userRepository.findByusername(req.getUsername());
+
+        if(userOpt.isPresent()){
+            User foundUser = userOpt.get();
+            if(BCrypt.checkpw(req.getPassword(), foundUser.getPassword())){
+
+                return new Principal(foundUser);
+
+            }
+        }
+        
+        throw new UserNotFoundException("Invalid username or password");
+
+
     }
 
 

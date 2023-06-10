@@ -12,6 +12,7 @@ import lombok.Setter;
 public class NewUserRequest {
     private String username;
     private int zipCode;
+    private String neighborhoodName;
     private String password;
     private String confirmPassword;
     

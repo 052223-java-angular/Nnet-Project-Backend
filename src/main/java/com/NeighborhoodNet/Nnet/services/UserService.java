@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewLoginRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewUserRequest;
 import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
+import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.entities.Role;
 import com.NeighborhoodNet.Nnet.entities.User;
 import com.NeighborhoodNet.Nnet.repositories.UserRepository;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 public class UserService {
 
     private final RoleService roleService;
+    private final NeighborhoodService neighborhoodService;
     private final UserRepository userRepository;
     
     
@@ -46,24 +48,35 @@ public class UserService {
         return password.equals(confirmPassword);
     }
 
-    public boolean isValidZipCode(int zipCode) {
-        
+    public boolean isValidZipCode(int zipCode) {  
         String zipcode = Integer.toString(zipCode);
-
         return zipcode.matches("^\\d{5}$");
     
     }
 
-
    public User registerUser(NewUserRequest req) {
+
         // find role USER
         Role foundRole = roleService.findByname("USER");
+
+
+        /* this method will find if this zipcode exist in the neighborhood table
+            if it exist it will return neighborhood_id and update the census by ++1 else it will call save method to create new neighborhood
+        */
+        Neighborhood neighborhood = neighborhoodService.findByzipCode(req.getZipCode());
+
+        if(neighborhood == null){
+
+            neighborhood = neighborhoodService.save(req);
+        } else {
+           neighborhood = neighborhoodService.updateByzipCode(req.getZipCode());
+        }
 
         // hash password
         String hashed = BCrypt.hashpw(req.getPassword(), BCrypt.gensalt());
 
         // create new user
-        User newUser = new User(req.getUsername(), hashed, foundRole, req.getZipCode());
+        User newUser = new User(req.getUsername(), hashed, foundRole, req.getZipCode(), neighborhood);
 
         // save and return user
         return userRepository.save(newUser);

@@ -1,6 +1,7 @@
 package com.NeighborhoodNet.Nnet.entities;
 
 import java.util.Set;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -37,14 +38,26 @@ public class Neighborhood {
     private int census;
 
 
-    // @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
-    // @JsonManagedReference
-    // private Set<User> user;
+    @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<User> user;
 
     @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Post> post;
 
+
+    public Neighborhood(int zipCode, String name) {
+        this.id =  UUID.randomUUID().toString();
+        this.name = name;
+        this.zipCode = zipCode;
+        this.census = 1;
+
+    }
+
+    public void increaseCensus(){
+        census++;
+    }
 
 
     

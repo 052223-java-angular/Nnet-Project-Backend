@@ -1,7 +1,6 @@
 package com.NeighborhoodNet.Nnet.entities;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -58,23 +57,24 @@ public class User {
     @JsonManagedReference
     private Set<Review> reviews;
 
-    // @ManyToOne
-    // @JoinColumn(name = "neighborhood_id")
-    // @JsonBackReference
-    // private Neighborhood neighborhood_id;
+    @ManyToOne
+    @JoinColumn(name = "neighborhood_id")
+    @JsonBackReference
+    private Neighborhood neighborhood_id;
 
 
     @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Post> posts;
 
-    public User(String username, String password, Role role_id, int zipCode) {
+    public User(String username, String password, Role role_id, int zipCode, Neighborhood neighborhood_id) {
     this.id = UUID.randomUUID().toString();
     this.username = username;
     this.password = password;
     this.dateCreated = LocalDate.now();
     this.role_id = role_id;
     this.zipCode = zipCode;
+    this.neighborhood_id = neighborhood_id;
     }
     
 

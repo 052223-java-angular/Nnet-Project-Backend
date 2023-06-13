@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     public Role findByname(String name) {
         return roleRepository.findByname(name).orElseThrow(() -> new RoleNotFoundException("Role " + name + " not found"));

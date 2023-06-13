@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ExpiredTokenException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.RoleNotFoundException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
@@ -20,8 +21,8 @@ public class ExceptionController {
      * Exception handler for ResourceConflictException.
      *
      * @param e the ResourceConflictException to handle
-     * @return ResponseEntity with the error message and status code indicating
-     *         resource conflict
+     * @return ResponseEntity with the error message and status code indicating resource conflict
+     * (duplicate name, duplicate id ....)
      */
     @ExceptionHandler(ResourceConflictException.class)
     public ResponseEntity<Map<String, Object>> handleResourceConflictException(ResourceConflictException e) {
@@ -31,6 +32,14 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(map);
     }
 
+
+    /**
+     * Exception handler for UserNotFoundException.
+     *
+     * @param e the UserNotFoundException to handle
+     * @return ResponseEntity with the error message and status code indicating user
+     *         not found
+     */
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleUserNotFoundException(UserNotFoundException e) {
         Map<String, Object> map = new HashMap<>();
@@ -53,4 +62,20 @@ public class ExceptionController {
         map.put("message", e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(map);
     }
+
+
+    /**
+     * Exception handler for ExpiredTokenException.
+     *
+     * @param e the ExpiredTokenException to handle
+     * @return ResponseEntity with the error message and status code indicating the token is Expired
+     */
+    @ExceptionHandler(ExpiredTokenException.class)
+    public ResponseEntity<Map<String, Object>> handleExpiredTokenException(ExpiredTokenException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("timestamp", new Date(System.currentTimeMillis()));
+        map.put("message", e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    }
+
 }

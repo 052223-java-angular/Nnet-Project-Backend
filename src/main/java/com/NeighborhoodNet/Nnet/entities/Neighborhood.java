@@ -37,6 +37,9 @@ public class Neighborhood {
     @Column
     private int census;
 
+    @Column
+    private String country = "USA";
+
 
     @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
     @JsonManagedReference

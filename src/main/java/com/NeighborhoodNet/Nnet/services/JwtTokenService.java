@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ExpiredTokenException;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+
 
 @Service
 public class JwtTokenService {
@@ -53,6 +57,7 @@ public class JwtTokenService {
         return tokenUsername.equals(userPrincipal.getUsername());
     }
 
+    
     /**
      * Extracts the username from the JWT token.
      *
@@ -105,6 +110,26 @@ public class JwtTokenService {
      */
     public String extractUserRole(String token) {
         return (String) extractAllClaims(token).get("role");
+    }
+
+    /**
+     * Checks if the token is Expired.
+     *
+     * @param token The JWT token.
+     * @return true if the token is expired and throw exception.
+     */
+    public boolean isTokenExpired(String token) {
+    try {
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        long expirationTime = claims.getExpiration().getTime();
+        long currentTime = System.currentTimeMillis();
+        return currentTime > expirationTime;
+    } catch (ExpiredJwtException e) {
+        throw new ExpiredTokenException("Session Expired Login Again");
+    }catch (Exception e) {
+            throw new ExpiredTokenException("Unauthorized Access");
+        }
+
     }
     
 }

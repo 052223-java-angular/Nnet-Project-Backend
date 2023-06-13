@@ -100,5 +100,9 @@ public class UserService {
 
     }
 
+    public Optional<User> findById(String user_id) {
+        return userRepository.findById(user_id);
+    }
+
 
 }

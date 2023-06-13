@@ -2,7 +2,9 @@ package com.NeighborhoodNet.Nnet.entities;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
+import com.NeighborhoodNet.Nnet.dtos.requests.NewPostRequest;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -27,7 +29,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "posts")
 public class Post {
-
 
     @Id
     private String id;
@@ -65,6 +66,22 @@ public class Post {
     @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY )
     @JsonManagedReference
     private Set<Review> reviews;
+
+    
+
+    public Post(NewPostRequest req, User user) {
+
+        this.id = UUID.randomUUID().toString();
+        this.user_id = user;
+        this.title = req.getTitle();
+        this.contact = req.getContact();
+        this.category = req.getCategory();
+        this.description = req.getDescription();
+        this.location = req.getLocation();
+        this.neighborhood_id = user.getNeighborhood_id();
+        this.timeCreated = LocalDate.now();
+
+    }
 
 
 

@@ -12,9 +12,8 @@ import lombok.AllArgsConstructor;
 @Service
 public class NeighborhoodService {
 
-    private NeighborhoodRepository neighborhoodRepository;
+    private final NeighborhoodRepository neighborhoodRepository;
 
-    
 
     public Neighborhood updateByzipCode(int zipCode) {
 

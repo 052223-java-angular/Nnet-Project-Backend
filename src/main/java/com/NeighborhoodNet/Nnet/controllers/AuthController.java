@@ -18,6 +18,7 @@ import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
 import com.NeighborhoodNet.Nnet.services.UserService;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -81,6 +82,12 @@ public class AuthController {
        Principal principal = userService.login(req);
 
        String token = tokenService.generateToken(principal);
+
+        boolean bool = tokenService.isTokenExpired(token);
+        
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
 
        principal.setToken(token);
 

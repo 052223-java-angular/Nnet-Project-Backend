@@ -10,5 +10,6 @@ import com.NeighborhoodNet.Nnet.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByusername(String username);
+    
 
 }

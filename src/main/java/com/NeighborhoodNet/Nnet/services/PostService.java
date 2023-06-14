@@ -36,30 +36,25 @@ public class PostService {
     }
 
 
-    // public List<Feed> getAll(String user_id) {
+    public List<Feed> getAll(String user_id) {
+    Optional<User> userOpt = userService.findById(user_id);
+    List<Feed> feeds = new ArrayList<>();
 
-        
-    //     Optional<User> useropt =  userService.findById(user_id);
-    //     List<Feed> feeds = new ArrayList<>();
+    if (userOpt.isEmpty()) {
+        throw new UserNotFoundException("User Not Found!");
+    }
 
-    //     if(useropt.isEmpty()){
-    //         throw new UserNotFoundException("User Not Found!");
-    //     }
+    Neighborhood neighborhood = userOpt.get().getNeighborhoodId();
 
-    //     User user = useropt.get();
+    List<Post> posts = postRepository.findByneighborhoodId(neighborhood);
 
-    //     Neighborhood neighborhood = user.getNeighborhood_id();
+    for (Post post : posts) {
+        feeds.add(new Feed(neighborhood, post));
+    }
 
-    //     Post posts = postRepository.findByneighborhood_id(neighborhood.getId());
+    return feeds;
+}
 
-    //     while(!posts.getId().isEmpty()){
-
-    //         feeds.add(new Feed(neighborhood, posts));
-
-    //     }
-
-    //     return feeds;
-    // }
 
     
 }

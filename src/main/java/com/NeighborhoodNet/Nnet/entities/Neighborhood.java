@@ -41,11 +41,11 @@ public class Neighborhood {
     private String country = "USA";
 
 
-    @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "neighborhoodId", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<User> user;
 
-    @OneToMany(mappedBy = "neighborhood_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "neighborhoodId", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Post> post;
 

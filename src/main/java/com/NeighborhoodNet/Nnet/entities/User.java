@@ -58,23 +58,23 @@ public class User {
     private Set<Review> reviews;
 
     @ManyToOne
-    @JoinColumn(name = "neighborhood_id")
+    @JoinColumn(name = "neighborhoodId")
     @JsonBackReference
-    private Neighborhood neighborhood_id;
+    private Neighborhood neighborhoodId;
 
 
     @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Post> posts;
 
-    public User(String username, String password, Role role_id, int zipCode, Neighborhood neighborhood_id) {
+    public User(String username, String password, Role role_id, int zipCode, Neighborhood neighborhoodId) {
     this.id = UUID.randomUUID().toString();
     this.username = username;
     this.password = password;
     this.dateCreated = LocalDate.now();
     this.role_id = role_id;
     this.zipCode = zipCode;
-    this.neighborhood_id = neighborhood_id;
+    this.neighborhoodId = neighborhoodId;
     }
     
 

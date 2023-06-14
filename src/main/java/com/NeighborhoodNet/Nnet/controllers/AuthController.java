@@ -1,12 +1,7 @@
 package com.NeighborhoodNet.Nnet.controllers;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,25 +91,22 @@ public class AuthController {
     }
 
 
-    // @PostMapping("/login")
-
-
 
 
 
 
     /* Exception Handling section  */
 
-         @ExceptionHandler(ResourceConflictException.class)
-    public ResponseEntity<Map<String, Object>> handleResourceConflictException(ResourceConflictException e) {
-        Map<String, Object> map = new HashMap<>();
+    //      @ExceptionHandler(ResourceConflictException.class)
+    // public ResponseEntity<Map<String, Object>> handleResourceConflictException(ResourceConflictException e) {
+    //     Map<String, Object> map = new HashMap<>();
 
-        map.put("timestamp", new Date(System.currentTimeMillis()));
-        map.put("message", e.getMessage());
+    //     map.put("timestamp", new Date(System.currentTimeMillis()));
+    //     map.put("message", e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(map);
+    //     return ResponseEntity.status(HttpStatus.CONFLICT).body(map);
         
-    }
+    // }
     
 
 }

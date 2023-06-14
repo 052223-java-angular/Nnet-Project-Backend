@@ -21,20 +21,20 @@ public class Feed {
     private String description;
     private String location;
     private LocalDate postedTime;
-    private String neighborhood_name;
+    private String neighborhoodName;
     private String contact;
     private String user_name;
     
-     public Feed(Neighborhood neighborhood, Post posts) {
+     public Feed(Neighborhood neighborhood, Post post) {
 
-        this.title = posts.getTitle();
-        this.category = posts.getCategory();
-        this.description = posts.getDescription();
-        this.location = posts.getLocation();
-        this.postedTime = posts.getTimeCreated();
-        this.neighborhood_name = neighborhood.getName();
-        this.contact = posts.getContact();
-        this.user_name = posts.getUser_id().getUsername();
+        this.title = post.getTitle();
+        this.category = post.getCategory();
+        this.description = post.getDescription();
+        this.location = post.getLocation();
+        this.postedTime = post.getTimeCreated();
+        this.neighborhoodName = neighborhood.getName();
+        this.contact = post.getContact();
+        this.user_name = post.getUser_id().getUsername();
         
     }
 }

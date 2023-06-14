@@ -60,7 +60,7 @@ public class ExceptionController {
         Map<String, Object> map = new HashMap<>();
         map.put("timestamp", new Date(System.currentTimeMillis()));
         map.put("message", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(map);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
     }
 
 

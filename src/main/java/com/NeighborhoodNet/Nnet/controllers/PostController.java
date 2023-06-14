@@ -49,27 +49,27 @@ public class PostController {
     
     }
 
-    // @GetMapping("/feed")
-    // public ResponseEntity<List<Feed>> feedPosts(HttpServletRequest sreq){
+    @GetMapping("/feed")
+    public ResponseEntity<List<Feed>> feedPosts(HttpServletRequest sreq){
 
-    //     String token = sreq.getHeader("auth-token");
+        String token = sreq.getHeader("auth-token");
 
-    //     boolean bool = tokenService.isTokenExpired(token);
+        boolean bool = tokenService.isTokenExpired(token);
         
-    //     if(token == null || bool == true){
-    //         throw new UserNotFoundException("Invalid user");
-    //     }
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
         
-    //     //using the Jwt userId extractor mathod user_Id will be extracted from the token
+        //using the Jwt userId extractor mathod user_Id will be extracted from the token
 
-    //     String user_id = tokenService.extractUserId(token);
+        String user_id = tokenService.extractUserId(token);
 
-    //      List<Feed> post = postService.getAll(user_id);
+        List<Feed> post = postService.getAll(user_id);
 
 
-    //     return ResponseEntity.status(HttpStatus.OK).body(post);
+        return ResponseEntity.status(HttpStatus.OK).body(post);
         
-    // }
+    }
 
     
 }

@@ -1,4 +1,6 @@
 package com.NeighborhoodNet.Nnet.services;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -6,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.NeighborhoodNet.Nnet.dtos.requests.NewLoginRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewUserRequest;
+import com.NeighborhoodNet.Nnet.dtos.responces.AllUsers;
 import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
 import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.entities.Role;
@@ -28,10 +31,6 @@ public class UserService {
     public boolean isUniqueUsername(String username){
 
         Optional<User> userOptional = userRepository.findByusername(username);
-
-        // System.out.println(userOptional.get().getUsername());
-
-        // System.out.println(userOptional );
 
         return userOptional.isEmpty();
     }
@@ -103,6 +102,24 @@ public class UserService {
     public Optional<User> findById(String user_id) {
         return userRepository.findById(user_id);
     }
+
+    public List<AllUsers> getAll() {
+
+        List<User> users = userRepository.findAll();
+        List<AllUsers> allUsers = new ArrayList<>();
+
+
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+       
+        for (User user : users) {
+            allUsers.add(new AllUsers(user));
+        }
+
+            return allUsers;
+        }
 
 
 }

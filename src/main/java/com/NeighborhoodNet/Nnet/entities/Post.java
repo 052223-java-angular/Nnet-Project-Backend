@@ -51,9 +51,9 @@ public class Post {
 
     //neighbourhood_id
     @ManyToOne
-    @JoinColumn(name = "neighborhood_id")
+    @JoinColumn(name = "neighborhoodId")
     @JsonBackReference
-    private Neighborhood neighborhood_id;
+    private Neighborhood neighborhoodId;
 
     //user_id
     @ManyToOne
@@ -78,7 +78,7 @@ public class Post {
         this.category = req.getCategory();
         this.description = req.getDescription();
         this.location = req.getLocation();
-        this.neighborhood_id = user.getNeighborhood_id();
+        this.neighborhoodId = user.getNeighborhoodId();
         this.timeCreated = LocalDate.now();
 
     }

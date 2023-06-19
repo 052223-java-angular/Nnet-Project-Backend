@@ -1,10 +1,12 @@
 # Henok_Nnet_P1
 
-# P1 - Solo Programming eCommerce Project
+# P1 - Neighborhood Net(Nnet) Project
 
 ## Introduction
 
-This is a Neighborhood Watch platform which will be built by using Angular and Java, the website will be designed and developed to help the community by providing different services.
+The Neighborhood Net platform is a website that aims to enhance community safety and support by leveraging Angular and Java technologies for its development. It will serve as a centralized hub for residents to access various services and resources. The website will be designed with user-friendly interfaces and interactive features to encourage community engagement. 
+Users will be able to report suspicious activities, request assistance,find lost and found items,access new businesses, rate and review different resources, get useful contacts list and access information on tips and local events. Additionally, the platform may include features such as neighborhood forums, emergency contact information, and updates from local law enforcement agencies. By utilizing Angular and Java, the website will offer a robust and scalable solution to empower communities and foster a sense of security and cooperation among residents.
+
 
 ## User Stories
 
@@ -15,8 +17,8 @@ This is a Neighborhood Watch platform which will be built by using Angular and J
 - **As a user**, I want to browse through different event lists around my community, see Volunteer activities, new local businesses, emergencies.
 - **As a user**, I want to search for resources and things in my communitiy based on categories and keywords.
 - **As a user**, I want to post activities, promotions and events.
-- **As a user**, I want to rate and review local businesses and events.
-- **As a user**, I want to view ratings and reviews from other users.
+- **As a user**, I want to like and comment local businesses and events.
+- **As a user**, I want to view comments from other users.
 - **As a user**, I want to find useful contact numbers of service providers (plumber, electrician, mechanic).
 - **As a user**, I want to browse and post if necessary lost and found items.
 
@@ -25,29 +27,27 @@ This is a Neighborhood Watch platform which will be built by using Angular and J
 
 - User registration and login
 - user editing profile
-- Browsing and searching for community resources
+- Browsing and searching for community resources (Posts)
 - posting events and activities and finding posts and activities.
-- get information on lost and found items
-- browse through community to see new businesses
-- Business rating and reviewing
+- Like and Comment on posts
 
 ## Stretch Goals
 
 - Implementing a notification system to notify posting and activities
 - Small Social media feature for the community people to get to know new people
-- list of day care and other places with breif description with rating.
+- Dark mode for the Website
 
 
 ## Tech Stacks
 
 - **Java**: The main programming language used for building the backend side of the web-app.
--**Spring Framework**: a java framework to handle the restful nature of the web.
--**Hibernate**: object–relational mapping tool for the Java programming language
+- **Spring Framework**: a java framework to handle the restful nature of the web.
+- **Hibernate**: object–relational mapping tool for the Java programming language
 - **Angular**: open-source single-page web application framework to build the frontend of the web-app.
+- **zippopotam**: External Api to get Information of user location based on zipcode
 - **PostgreSQL**: Used as the database to store user, product, and order data.
 - **Maven**: Used for managing project dependencies.
 - **JUnit**: A testing framework for Java applications, used to ensure our code works as expected.
-- **Log4j**: A logging utility for debugging purposes.
 - **JDBC (Java Database Connectivity)**: An API for connecting and executing queries on the database.
 - **BCrypt**: A Java library for hashing and checking passwords for security.
 - **JUnit, Mockito, and PowerMock**: Used for unit and integration testing.

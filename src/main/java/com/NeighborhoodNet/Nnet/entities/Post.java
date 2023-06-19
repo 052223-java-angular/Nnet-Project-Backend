@@ -63,7 +63,7 @@ public class Post {
 
     //review_id
 
-    @OneToMany(mappedBy = "post_id", fetch = FetchType.LAZY )
+    @OneToMany(mappedBy = "postId", fetch = FetchType.LAZY )
     @JsonManagedReference
     private Set<Review> reviews;
 

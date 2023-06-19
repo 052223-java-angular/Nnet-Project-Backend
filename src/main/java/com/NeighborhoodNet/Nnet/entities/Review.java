@@ -1,5 +1,8 @@
 package com.NeighborhoodNet.Nnet.entities;
 
+import java.util.UUID;
+
+import com.NeighborhoodNet.Nnet.dtos.requests.ReviewRequest;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -33,18 +36,29 @@ public class Review {
     @Column
     private int likes;
 
-    
-
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user_id;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     @JsonBackReference
-    private Post post_id;
+    private Post postId;
+
+
+    public Review(ReviewRequest req, User user, Post post) {
+        this.id= UUID.randomUUID().toString();
+        this.comment = req.getComment();
+        this.likes = 1;
+        this.user_id = user;
+        this.postId = post;
+    }
+
+
+    public void addLike() {
+        likes++;
+    }
 
 
 }

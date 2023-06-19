@@ -16,6 +16,7 @@ import lombok.Setter;
 @Setter
 public class Feed {
 
+    private String postId;
     private String title;
     private String category;
     private String description;
@@ -27,6 +28,7 @@ public class Feed {
     
      public Feed(Neighborhood neighborhood, Post post) {
 
+        this.postId = post.getId();
         this.title = post.getTitle();
         this.category = post.getCategory();
         this.description = post.getDescription();
@@ -35,6 +37,7 @@ public class Feed {
         this.neighborhoodName = neighborhood.getName();
         this.contact = post.getContact();
         this.user_name = post.getUser_id().getUsername();
+        
         
     }
 }

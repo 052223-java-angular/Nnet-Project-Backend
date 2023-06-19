@@ -17,8 +17,8 @@ Users will be able to report suspicious activities, request assistance,find lost
 - **As a user**, I want to browse through different event lists around my community, see Volunteer activities, new local businesses, emergencies.
 - **As a user**, I want to search for resources and things in my communitiy based on categories and keywords.
 - **As a user**, I want to post activities, promotions and events.
-- **As a user**, I want to rate and review local businesses and events.
-- **As a user**, I want to view ratings and reviews from other users.
+- **As a user**, I want to like and comment local businesses and events.
+- **As a user**, I want to view comments from other users.
 - **As a user**, I want to find useful contact numbers of service providers (plumber, electrician, mechanic).
 - **As a user**, I want to browse and post if necessary lost and found items.
 
@@ -27,29 +27,27 @@ Users will be able to report suspicious activities, request assistance,find lost
 
 - User registration and login
 - user editing profile
-- Browsing and searching for community resources
+- Browsing and searching for community resources (Posts)
 - posting events and activities and finding posts and activities.
-- get information on lost and found items
-- browse through community to see new businesses
-- Business rating and reviewing
+- Like and Comment on posts
 
 ## Stretch Goals
 
 - Implementing a notification system to notify posting and activities
 - Small Social media feature for the community people to get to know new people
-- list of day care and other places with breif description with rating.
+- Dark mode for the Website
 
 
 ## Tech Stacks
 
 - **Java**: The main programming language used for building the backend side of the web-app.
--**Spring Framework**: a java framework to handle the restful nature of the web.
--**Hibernate**: object–relational mapping tool for the Java programming language
+- **Spring Framework**: a java framework to handle the restful nature of the web.
+- **Hibernate**: object–relational mapping tool for the Java programming language
 - **Angular**: open-source single-page web application framework to build the frontend of the web-app.
+- **zippopotam**: External Api to get Information of user location based on zipcode
 - **PostgreSQL**: Used as the database to store user, product, and order data.
 - **Maven**: Used for managing project dependencies.
 - **JUnit**: A testing framework for Java applications, used to ensure our code works as expected.
-- **Log4j**: A logging utility for debugging purposes.
 - **JDBC (Java Database Connectivity)**: An API for connecting and executing queries on the database.
 - **BCrypt**: A Java library for hashing and checking passwords for security.
 - **JUnit, Mockito, and PowerMock**: Used for unit and integration testing.

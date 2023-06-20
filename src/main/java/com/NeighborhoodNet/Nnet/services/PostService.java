@@ -56,5 +56,25 @@ public class PostService {
 }
 
 
+    public void removePost(String postId) {
+        Optional<Post> postOpt = postRepository.findById(postId);
+        Post post = postOpt.get();
+
+        if (postOpt.isEmpty()) {
+            throw new UserNotFoundException("Post Not Found!");
+        }
+
+        postRepository.delete(post);
+
+    }
+
+
+    public boolean isValidId(String postId) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+
+        return postOptional.isEmpty();
+    }
+
+
     
 }

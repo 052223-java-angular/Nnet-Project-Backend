@@ -12,6 +12,7 @@ import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.NeighborhoodNet.Nnet.dtos.responces.UpdateUserResponse;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
 import com.NeighborhoodNet.Nnet.services.UserService;
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -61,10 +62,39 @@ public class UserController {
 
         String user_id = tokenService.extractUserId(token);
 
-        // register user
+        //perform validation on input before updating 
+        //check username is unique
+
+        if(!userService.isUniqueUsername(req.getUsername())){
+
+            throw new ResourceConflictException("User name is not unique");
+
+        }
+
+         if (!userService.isValidUsername(req.getUsername())) {
+            throw new ResourceConflictException(
+                    "Username needs to be 8-20 characters long and can only contain letters, numbers, periods, and underscores");
+        }
+
+        // if username is not unique, throw exception
+        if (!userService.isUniqueUsername(req.getUsername())) {
+            throw new ResourceConflictException("Username is not unique");
+        }
+
+        // if password is not valid, throw exception
+        if (!userService.isValidPassword(req.getPassword())) {
+            throw new ResourceConflictException("Password needs to be at least 8 characters long and contain at least one letter and one number");
+        }
+
+        //check if the zipcode is only 5 digits
+        if (!userService.isValidZipCode(req.getZipCode())) {
+             throw new ResourceConflictException("Zipcode is not Valid please enter only 5 digit number");
+        }
+
+        // update user
         userService.updateUser(req, user_id);
 
-        // return 201 - CREATED
+        // return Accepted if updated
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         
     }

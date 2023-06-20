@@ -15,6 +15,7 @@ import com.NeighborhoodNet.Nnet.entities.User;
 import com.NeighborhoodNet.Nnet.repositories.PostRepository;
 import com.NeighborhoodNet.Nnet.repositories.ReviewRepository;
 import com.NeighborhoodNet.Nnet.repositories.UserRepository;
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.RoleNotFoundException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
 import lombok.AllArgsConstructor;
@@ -110,6 +111,14 @@ public class ReviewService {
         List<Review> reviews = reviewRepository.findByPostId(post);
 
         Review review = reviews.get(0);
+
+        if(!post.getUser_id().getId().equals(user_id)){
+            throw new RoleNotFoundException("Can not delete this");
+        }
+
+        if(!review.getUser_id().getId().equals(user_id)){
+            throw new RoleNotFoundException("Can not delete this");
+        }
         
         reviewRepository.delete(review);
     }

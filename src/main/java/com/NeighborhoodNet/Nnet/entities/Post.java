@@ -8,6 +8,7 @@ import com.NeighborhoodNet.Nnet.dtos.requests.NewPostRequest;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -63,7 +64,7 @@ public class Post {
 
     //review_id
 
-    @OneToMany(mappedBy = "postId", fetch = FetchType.LAZY )
+    @OneToMany(mappedBy = "postId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
     @JsonManagedReference
     private Set<Review> reviews;
 

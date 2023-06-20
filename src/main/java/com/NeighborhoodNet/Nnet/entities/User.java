@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -53,7 +54,7 @@ public class User {
     private Role role_id;
 
 
-    @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private Set<Review> reviews;
 
@@ -63,7 +64,7 @@ public class User {
     private Neighborhood neighborhoodId;
 
 
-    @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private Set<Post> posts;
 

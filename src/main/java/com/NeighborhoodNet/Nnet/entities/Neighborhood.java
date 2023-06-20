@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,11 +43,11 @@ public class Neighborhood {
     private String country = "USA";
 
 
-    @OneToMany(mappedBy = "neighborhoodId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "neighborhoodId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private Set<User> user;
 
-    @OneToMany(mappedBy = "neighborhoodId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "neighborhoodId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private Set<Post> post;
 
@@ -69,6 +70,10 @@ public class Neighborhood {
 
     public void increaseCensus(){
         census++;
+    }
+
+    public void decreaseCensus(){
+        census--;
     }
 
 

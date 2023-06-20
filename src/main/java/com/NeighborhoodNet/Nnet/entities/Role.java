@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,7 +31,7 @@ public class Role {
     private String name;
 
 
-    @OneToMany(mappedBy = "role_id", fetch = FetchType.LAZY) // cascade = CascadeType.ALL -> protects records from being orphaned when this table is deleted
+    @OneToMany(mappedBy = "role_id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) // cascade = CascadeType.ALL -> protects records from being orphaned when this table is deleted
     @JsonManagedReference
     private Set<User> users;
 

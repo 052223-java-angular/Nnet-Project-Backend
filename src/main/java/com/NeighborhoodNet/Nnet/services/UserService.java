@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import com.NeighborhoodNet.Nnet.dtos.requests.AdminUpdateUser;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewLoginRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewUserRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
@@ -15,18 +16,19 @@ import com.NeighborhoodNet.Nnet.dtos.responces.UpdateUserResponse;
 import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.entities.Role;
 import com.NeighborhoodNet.Nnet.entities.User;
+import com.NeighborhoodNet.Nnet.repositories.NeighborhoodRepository;
 import com.NeighborhoodNet.Nnet.repositories.UserRepository;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
 import lombok.AllArgsConstructor;
-
-@Service
 @AllArgsConstructor
+@Service
 public class UserService {
 
     private final RoleService roleService;
     private final NeighborhoodService neighborhoodService;
     private final UserRepository userRepository;
+    private final NeighborhoodRepository neighborhoodRepository;
     
     
 
@@ -53,6 +55,12 @@ public class UserService {
         String zipcode = Integer.toString(zipCode);
         return zipcode.matches("^\\d{5}$");
     
+    }
+
+    public boolean isValidId(String userId) {
+         Optional<User> userOptional = userRepository.findById(userId);
+
+        return userOptional.isEmpty();
     }
 
    public User registerUser(NewUserRequest req) {
@@ -163,10 +171,47 @@ public class UserService {
 
         userRepository.save(user);
 
+    }
 
+    public void removerUser(String userId) {
+
+        Optional<User> userOpt = userRepository.findById(userId);
+        User user = userOpt.get();
+
+        Neighborhood neighborhood = user.getNeighborhoodId();
+
+        if (userOpt.isEmpty()) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+        userRepository.delete(user);
+
+        neighborhood.decreaseCensus();
+
+        neighborhoodRepository.save(neighborhood);
 
 
     }
+
+    public void updateUser(AdminUpdateUser req) {
+        
+        Optional<User> userOpt = userRepository.findById(req.getUserId());
+        User user = userOpt.get();
+
+
+        if (user.equals(null)) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+        Role foundRole = roleService.findByname("ADMIN");
+        user.setRole_id(foundRole);
+
+        userRepository.save(user);
+    }
+
+  
+
+    
 
 
 }

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.NeighborhoodNet.Nnet.dtos.requests.NewLoginRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewUserRequest;
+import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.NeighborhoodNet.Nnet.dtos.responces.AllUsers;
 import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
+import com.NeighborhoodNet.Nnet.dtos.responces.UpdateUserResponse;
 import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.entities.Role;
 import com.NeighborhoodNet.Nnet.entities.User;
@@ -120,6 +122,51 @@ public class UserService {
 
             return allUsers;
         }
+
+
+    public UpdateUserResponse getUserProfile(String user_id) {
+        
+        Optional<User> userOpt = userRepository.findById(user_id);
+        User user = userOpt.get();
+
+
+        if (user.equals(null)) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+
+        UpdateUserResponse info = new UpdateUserResponse(user);
+
+        return info;
+    }
+
+    public void updateUser(UpdateUser req, String user_id) {
+
+        Optional<User> userOpt = userRepository.findById(user_id);
+        User user = userOpt.get();
+
+
+        if (user.equals(null)) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+        Neighborhood neighborhood = neighborhoodService.saveNew(req);
+
+        String hashed = BCrypt.hashpw(req.getPassword(), BCrypt.gensalt());
+
+
+        user.setEmail(req.getEmail());
+        user.setNeighborhoodId(neighborhood);
+        user.setPassword(hashed);
+        user.setUsername(req.getUsername());
+        user.setZipCode(req.getZipCode());
+
+        userRepository.save(user);
+
+
+
+
+    }
 
 
 }

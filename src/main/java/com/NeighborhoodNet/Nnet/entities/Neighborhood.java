@@ -3,6 +3,7 @@ package com.NeighborhoodNet.Nnet.entities;
 import java.util.Set;
 import java.util.UUID;
 
+import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -57,6 +58,14 @@ public class Neighborhood {
         this.census = 1;
 
     }
+
+    public Neighborhood(UpdateUser req) {
+        this.id =  UUID.randomUUID().toString();
+        this.name = req.getNeighborhoodName();
+        this.zipCode = req.getZipCode();
+        this.census = 1;
+    }
+
 
     public void increaseCensus(){
         census++;

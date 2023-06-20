@@ -3,6 +3,7 @@ package com.NeighborhoodNet.Nnet.services;
 import org.springframework.stereotype.Service;
 
 import com.NeighborhoodNet.Nnet.dtos.requests.NewUserRequest;
+import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.repositories.NeighborhoodRepository;
 
@@ -40,6 +41,26 @@ public class NeighborhoodService {
 
     public Neighborhood findByzipCode(int zipCode) {
         return neighborhoodRepository.findByzipCode(zipCode);
+    }
+
+    public Neighborhood saveNew(UpdateUser req) {
+
+         Neighborhood neighbourhood = neighborhoodRepository.findByzipCode(req.getZipCode());
+
+        // if existing neighborhood found update the neighourhood census
+        if (neighbourhood != null) {
+
+            neighbourhood.increaseCensus();
+
+            neighborhoodRepository.save(neighbourhood); // Save the updated neighborhood back to the database
+            return neighbourhood;
+    
+        }
+        else{
+            Neighborhood newNeighborhood = new Neighborhood(req);
+            neighborhoodRepository.save(newNeighborhood);
+            return newNeighborhood;
+        }        
     }
     
 }

@@ -21,6 +21,7 @@ public class AllUsers {
     private String role_id;
     private String email;
     private LocalDate dateCreated;
+    private String neighborhoodName;
     private String neighborhoodId; //might screem if this is not neibourhood object
 
 
@@ -32,6 +33,7 @@ public class AllUsers {
         this.role_id = user.getRole_id().getId();
         this.email = user.getEmail();
         this.dateCreated = user.getDateCreated();
+        this.neighborhoodName = user.getNeighborhoodId().getName();
         this.neighborhoodId = user.getNeighborhoodId().getId();
         
     }

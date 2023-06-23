@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.NeighborhoodNet.Nnet.dtos.requests.AdminUpdateUser;
+import com.NeighborhoodNet.Nnet.dtos.responces.AllHoods;
 import com.NeighborhoodNet.Nnet.dtos.responces.AllUsers;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
+import com.NeighborhoodNet.Nnet.services.NeighborhoodService;
 import com.NeighborhoodNet.Nnet.services.PostService;
 import com.NeighborhoodNet.Nnet.services.UserService;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
@@ -32,6 +34,7 @@ public class AdminController {
     private final JwtTokenService tokenService;
     private final UserService userService;
     private final PostService postService;
+    private final NeighborhoodService neighborhoodService;
 
      @GetMapping("/users")
     public ResponseEntity<List<AllUsers>> feedUsers(HttpServletRequest sreq){
@@ -85,6 +88,8 @@ public class AdminController {
         }
 
 
+        System.out.println(req.getUserId());
+        System.out.println(req.getPostId());
         userService.removerUser(req.getUserId());
 
     
@@ -116,6 +121,7 @@ public class AdminController {
         }
 
 
+        System.out.println(req.getUserId());
         
         // update user
         userService.updateUser(req);
@@ -184,6 +190,29 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     
     }
+
+
+     @GetMapping("/hoods")
+    public ResponseEntity<List<AllHoods>> feedHoods(HttpServletRequest sreq){
+
+        String token = sreq.getHeader("auth-token");
+
+        boolean bool = tokenService.isTokenExpired(token);
+        
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
+
+        //extract the role to check if the user is ADMIN else deny access
+        if(!tokenService.extractUserRole(token).equals("ADMIN")){
+            throw new RoleNotFoundException("Unauthorized Access!!!");
+        }
+
+        List<AllHoods> hoods =  neighborhoodService.getAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(hoods);
+        
+     }
 
     
 }

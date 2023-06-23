@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,6 +15,7 @@ import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictExcepti
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.RoleNotFoundException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
+@CrossOrigin
 @RestControllerAdvice
 public class ExceptionController {
 

@@ -36,6 +36,9 @@ public class Review {
     @Column
     private int likes;
 
+    @Column
+    private String username;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
@@ -52,6 +55,7 @@ public class Review {
         this.comment = req.getComment();
         this.likes = 1;
         this.user_id = user;
+        this.username = user.getUsername();
         this.postId = post;
     }
 

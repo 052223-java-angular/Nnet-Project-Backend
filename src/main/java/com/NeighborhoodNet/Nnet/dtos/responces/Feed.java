@@ -1,9 +1,11 @@
 package com.NeighborhoodNet.Nnet.dtos.responces;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.entities.Post;
+import com.NeighborhoodNet.Nnet.entities.Review;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +27,9 @@ public class Feed {
     private String neighborhoodName;
     private String contact;
     private String user_name;
+    private Set<Review> reviews;
     
      public Feed(Neighborhood neighborhood, Post post) {
-
         this.postId = post.getId();
         this.title = post.getTitle();
         this.category = post.getCategory();
@@ -37,7 +39,6 @@ public class Feed {
         this.neighborhoodName = neighborhood.getName();
         this.contact = post.getContact();
         this.user_name = post.getUser_id().getUsername();
-        
-        
+        this.reviews = post.getReviews();
     }
 }

@@ -43,9 +43,9 @@ jobs:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # The name of your Elastic Beanstalk application
-        application_name: yolp
+        application_name: Nnet-1
         # The name of your Elastic Beanstalk environment
-        environment_name: yolp-env
+        environment_name: Nnet-1-env
         # A unique version label for the deployment
         version_label: version-${{github.run_number}}
         # The AWS region your Elastic Beanstalk application is hosted in

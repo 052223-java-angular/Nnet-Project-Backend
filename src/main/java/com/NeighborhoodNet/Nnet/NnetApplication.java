@@ -8,7 +8,7 @@ public class NnetApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NnetApplication.class, args);
-		System.out.println("here");
+		System.out.println("API is rinnung . . . ");
 	}
 
 }

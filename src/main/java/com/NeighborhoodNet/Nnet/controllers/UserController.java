@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.NeighborhoodNet.Nnet.dtos.responces.UpdateUserResponse;
+import com.NeighborhoodNet.Nnet.dtos.responces.UserName;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
 import com.NeighborhoodNet.Nnet.services.UserService;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
@@ -100,6 +101,26 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         
     }
+
+    @GetMapping("/username")
+    public ResponseEntity<UserName> getUserName(HttpServletRequest sreq){
+
+        String token = sreq.getHeader("auth-token");
+
+        boolean bool = tokenService.isTokenExpired(token);
+        
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
+
+        String user_id = tokenService.extractUserId(token);
+
+        UserName info = userService.getUserName(user_id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(info);
+        
+    }
+
 
 
     

@@ -5,16 +5,19 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.NeighborhoodNet.Nnet.dtos.requests.DeleteContentRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewPostRequest;
 import com.NeighborhoodNet.Nnet.dtos.responces.Feed;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
 import com.NeighborhoodNet.Nnet.services.PostService;
+import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -71,6 +74,67 @@ public class PostController {
 
         return ResponseEntity.status(HttpStatus.OK).body(post);
         
+    }
+
+       @DeleteMapping("/deletePost")
+     public ResponseEntity<?>deletePost(@RequestBody DeleteContentRequest req, HttpServletRequest sreq){
+
+        String token = sreq.getHeader("auth-token");
+
+        boolean bool = tokenService.isTokenExpired(token);
+        
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
+
+        //check if the user id exist
+        if(postService.isValidId(req.getPostId())){
+
+            throw new ResourceConflictException("Can not find Post!");
+
+        }
+
+        // if(!tokenService.extractUserRole(token).equals("ADMIN")){
+        //     throw new RoleNotFoundException("Unauthorized Access!!!");
+        // }
+
+
+        postService.removePost(req.getPostId());
+
+    
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    
+    }
+
+    @DeleteMapping("/deletecomment")
+     public ResponseEntity<?>deletecomment(@RequestBody DeleteContentRequest req, HttpServletRequest sreq){
+
+        String token = sreq.getHeader("auth-token");
+
+        boolean bool = tokenService.isTokenExpired(token);
+        
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
+
+        //check if the user id exist
+        if(postService.isValidId(req.getPostId())){
+
+            throw new ResourceConflictException("Can not find Post!");
+
+        }
+
+        // if(!tokenService.extractUserRole(token).equals("ADMIN")){
+        //     throw new RoleNotFoundException("Unauthorized Access!!!");
+        // }
+
+        System.out.println("reached here");
+
+        postService.removePost(req.getCommentId());
+
+    
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    
     }
 
     

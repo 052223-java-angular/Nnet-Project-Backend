@@ -14,17 +14,20 @@ import lombok.Setter;
 @Setter
 public class ReviewsResponse {
     
-    
+    String commentId;
     String username;
     String comment;
     int like;
+    String userId;
 
 
     public ReviewsResponse(User user, Review review) {
 
+        this.commentId = review.getId();
         this.username = user.getUsername();
         this.comment = review.getComment();
         this.like = review.getLikes();
+        this.userId = review.getUser_id().getId();
     }
 
 }

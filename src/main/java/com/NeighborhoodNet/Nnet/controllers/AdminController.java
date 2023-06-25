@@ -131,67 +131,6 @@ public class AdminController {
         
     }
 
-    @DeleteMapping("/deletePost")
-     public ResponseEntity<?>deletePost(@RequestBody AdminUpdateUser req, HttpServletRequest sreq){
-
-        String token = sreq.getHeader("auth-token");
-
-        boolean bool = tokenService.isTokenExpired(token);
-        
-        if(token == null || bool == true){
-            throw new UserNotFoundException("Invalid user");
-        }
-
-        //check if the user id exist
-        if(postService.isValidId(req.getPostId())){
-
-            throw new ResourceConflictException("Can not find Post!");
-
-        }
-
-        if(!tokenService.extractUserRole(token).equals("ADMIN")){
-            throw new RoleNotFoundException("Unauthorized Access!!!");
-        }
-
-
-        postService.removePost(req.getPostId());
-
-    
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    
-    }
-
-    @DeleteMapping("/deletecomment")
-     public ResponseEntity<?>deletecomment(@RequestBody AdminUpdateUser req, HttpServletRequest sreq){
-
-        String token = sreq.getHeader("auth-token");
-
-        boolean bool = tokenService.isTokenExpired(token);
-        
-        if(token == null || bool == true){
-            throw new UserNotFoundException("Invalid user");
-        }
-
-        //check if the user id exist
-        if(postService.isValidId(req.getPostId())){
-
-            throw new ResourceConflictException("Can not find Post!");
-
-        }
-
-        if(!tokenService.extractUserRole(token).equals("ADMIN")){
-            throw new RoleNotFoundException("Unauthorized Access!!!");
-        }
-
-
-        postService.removePost(req.getPostId());
-
-    
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    
-    }
-
-
      @GetMapping("/hoods")
     public ResponseEntity<List<AllHoods>> feedHoods(HttpServletRequest sreq){
 

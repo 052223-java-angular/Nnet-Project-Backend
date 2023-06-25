@@ -13,6 +13,7 @@ import com.NeighborhoodNet.Nnet.dtos.requests.UpdateUser;
 import com.NeighborhoodNet.Nnet.dtos.responces.AllUsers;
 import com.NeighborhoodNet.Nnet.dtos.responces.Principal;
 import com.NeighborhoodNet.Nnet.dtos.responces.UpdateUserResponse;
+import com.NeighborhoodNet.Nnet.dtos.responces.UserName;
 import com.NeighborhoodNet.Nnet.entities.Neighborhood;
 import com.NeighborhoodNet.Nnet.entities.Role;
 import com.NeighborhoodNet.Nnet.entities.User;
@@ -207,6 +208,22 @@ public class UserService {
         user.setRole_id(foundRole);
 
         userRepository.save(user);
+    }
+
+    public UserName getUserName(String user_id) {
+
+        Optional<User> userOpt = userRepository.findById(user_id);
+        User user = userOpt.get();
+
+
+        if (user.equals(null)) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+        UserName info = new UserName(user);
+
+        return info;
+
     }
 
   

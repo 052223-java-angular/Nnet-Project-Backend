@@ -68,6 +68,12 @@ public class UserController {
         //perform validation on input before updating 
         //check username is unique
 
+        System.out.println(req.getUsername());
+        System.out.println(req.getNeighborhoodName());
+        System.out.println(req.getZipCode());
+        System.out.println(req.getEmail());
+
+
         if(!userService.isUniqueUsername(req.getUsername())){
 
             throw new ResourceConflictException("User name is not unique");
@@ -79,15 +85,10 @@ public class UserController {
                     "Username needs to be 8-20 characters long and can only contain letters, numbers, periods, and underscores");
         }
 
-        // if username is not unique, throw exception
-        if (!userService.isUniqueUsername(req.getUsername())) {
-            throw new ResourceConflictException("Username is not unique");
-        }
-
         // if password is not valid, throw exception
-        if (!userService.isValidPassword(req.getPassword())) {
-            throw new ResourceConflictException("Password needs to be at least 8 characters long and contain at least one letter and one number");
-        }
+        // if (!userService.isValidPassword(req.getPassword())) {
+        //     throw new ResourceConflictException("Password needs to be at least 8 characters long and contain at least one letter and one number");
+        // }
 
         //check if the zipcode is only 5 digits
         if (!userService.isValidZipCode(req.getZipCode())) {

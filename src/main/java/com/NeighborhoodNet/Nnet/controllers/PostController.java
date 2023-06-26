@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.NeighborhoodNet.Nnet.dtos.requests.DeleteContentRequest;
+import com.NeighborhoodNet.Nnet.dtos.requests.Filter;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewPostRequest;
 import com.NeighborhoodNet.Nnet.dtos.responces.Feed;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
@@ -117,8 +118,11 @@ public class PostController {
             throw new UserNotFoundException("Invalid user");
         }
 
+        System.out.println("post" + req.getPostId());
+        System.out.println("commentIdr" + req.getCommentId());
+        
         //check if the user id exist
-        if(postService.isValidId(req.getPostId())){
+        if(postService.isValidId(req.getCommentId())){
 
             throw new ResourceConflictException("Can not find Post!");
 
@@ -135,6 +139,29 @@ public class PostController {
     
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     
+    }
+
+
+     @GetMapping("/filter")
+    public ResponseEntity<List<Feed>> filterfeed(@RequestBody Filter req, HttpServletRequest sreq){
+
+        String token = sreq.getHeader("auth-token");
+
+        boolean bool = tokenService.isTokenExpired(token);
+        
+        if(token == null || bool == true){
+            throw new UserNotFoundException("Invalid user");
+        }
+        
+        //using the Jwt userId extractor mathod user_Id will be extracted from the token
+
+        String user_id = tokenService.extractUserId(token);
+
+        List<Feed> post = postService.getFiltered(req.getCategory(), user_id);
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(post);
+        
     }
 
     

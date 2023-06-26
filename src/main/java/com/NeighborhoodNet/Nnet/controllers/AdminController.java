@@ -17,7 +17,6 @@ import com.NeighborhoodNet.Nnet.dtos.responces.AllHoods;
 import com.NeighborhoodNet.Nnet.dtos.responces.AllUsers;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
 import com.NeighborhoodNet.Nnet.services.NeighborhoodService;
-import com.NeighborhoodNet.Nnet.services.PostService;
 import com.NeighborhoodNet.Nnet.services.UserService;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.RoleNotFoundException;
@@ -33,7 +32,6 @@ import lombok.AllArgsConstructor;
 public class AdminController {
     private final JwtTokenService tokenService;
     private final UserService userService;
-    private final PostService postService;
     private final NeighborhoodService neighborhoodService;
 
      @GetMapping("/users")

@@ -76,5 +76,32 @@ public class PostService {
     }
 
 
+    public List<Feed> getFiltered(String category, String user_id) {
+        Optional<User> userOpt = userService.findById(user_id);
+        List<Feed> feeds = new ArrayList<>();
+
+        if (userOpt.isEmpty()) {
+            throw new UserNotFoundException("User Not Found!");
+        }
+
+        Neighborhood neighborhood = userOpt.get().getNeighborhoodId();
+
+        List<Post> posts = postRepository.findByneighborhoodId(neighborhood);
+
+        
+
+
+        for (Post post : posts) {
+
+            if(post.getCategory().equals(category)){
+
+                feeds.add(new Feed(neighborhood, post));
+            }            
+        }
+
+        return feeds;
+    }
+
+
     
 }

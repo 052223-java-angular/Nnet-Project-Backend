@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.NeighborhoodNet.Nnet.dtos.requests.DeleteComment;
 import com.NeighborhoodNet.Nnet.dtos.requests.DeleteContentRequest;
 import com.NeighborhoodNet.Nnet.dtos.requests.Filter;
 import com.NeighborhoodNet.Nnet.dtos.requests.NewPostRequest;
 import com.NeighborhoodNet.Nnet.dtos.responces.Feed;
 import com.NeighborhoodNet.Nnet.services.JwtTokenService;
 import com.NeighborhoodNet.Nnet.services.PostService;
+import com.NeighborhoodNet.Nnet.services.ReviewService;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.ResourceConflictException;
 import com.NeighborhoodNet.Nnet.utils.custome_exceprions.UserNotFoundException;
 
@@ -31,6 +33,7 @@ import lombok.AllArgsConstructor;
 public class PostController {
     private final PostService postService;
     private final JwtTokenService tokenService;
+    private final ReviewService reviewService;
 
     @PostMapping("/add")
      public ResponseEntity<?>createPost(@RequestBody NewPostRequest req, HttpServletRequest sreq){
@@ -108,7 +111,7 @@ public class PostController {
     }
 
     @DeleteMapping("/deletecomment")
-     public ResponseEntity<?>deletecomment(@RequestBody DeleteContentRequest req, HttpServletRequest sreq){
+     public ResponseEntity<?>deletecomment(@RequestBody DeleteComment req, HttpServletRequest sreq){
 
         String token = sreq.getHeader("auth-token");
 
@@ -117,16 +120,13 @@ public class PostController {
         if(token == null || bool == true){
             throw new UserNotFoundException("Invalid user");
         }
-
-        System.out.println("post" + req.getPostId());
-        System.out.println("commentIdr" + req.getCommentId());
         
         //check if the user id exist
-        if(postService.isValidId(req.getCommentId())){
+        // if(postService.isValidId(req.getComment())){
 
-            throw new ResourceConflictException("Can not find Post!");
+        //     throw new ResourceConflictException("Can not find Post!");
 
-        }
+        // }
 
         // if(!tokenService.extractUserRole(token).equals("ADMIN")){
         //     throw new RoleNotFoundException("Unauthorized Access!!!");
@@ -134,7 +134,7 @@ public class PostController {
 
         System.out.println("reached here");
 
-        postService.removePost(req.getCommentId());
+        reviewService.removeComment(req.getComment());
 
     
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();

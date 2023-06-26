@@ -12,30 +12,38 @@ Users will be able to report suspicious activities, request assistance,find lost
 
 - **As a user**, I want to register an account so that I can have access to the community resources.
 - **As a user**, I want to log in to my account so that I can see whats is happening in my neighbourhood and post activities.
-- **As a user**, I want to log in to my account so that I can view and edit my profile and bio.
+- **As a user**, I want to log in to my account so that I can view and edit my profile.
 - **As a user**, I want to browse through the resources only when logging in.
 - **As a user**, I want to browse through different event lists around my community, see Volunteer activities, new local businesses, emergencies.
-- **As a user**, I want to search for resources and things in my communitiy based on categories and keywords.
+- **As a user**, I want to search for resources and things in my communitiy based on categories.
 - **As a user**, I want to post activities, promotions and events.
 - **As a user**, I want to like and comment local businesses and events.
 - **As a user**, I want to view comments from other users.
-- **As a user**, I want to find useful contact numbers of service providers (plumber, electrician, mechanic).
-- **As a user**, I want to browse and post if necessary lost and found items.
+- **As an Admin**, I want to delete users.
+- **As an Admin**, I want to view All hoods.
+- **As an Admin**, I want to promote users to be an admin.
+- **As an Admin**, I want to delete posts of users.
+- **As an Admin**, I want to delete comments of users.
 
 
 ## MVP (Minimum Viable Product)
 
 - User registration and login
-- user editing profile
-- Browsing and searching for community resources (Posts)
-- posting events and activities and finding posts and activities.
-- Like and Comment on posts
+- Session storage and Authentication
+- Admin Privilage Delete users or promote users
+- Admin privilage to delete user Posts
+- Admin Privilage to delete bad Comments 
+- Admin can View Hoods and Census
+- posting events and activities, remove Posts (Poster & Admin)
+- Comment on posts and Delete Comments (Commenter, Poster, Admin)
+-  
 
 ## Stretch Goals
 
-- Implementing a notification system to notify posting and activities
+- filter for Posts
+- Like people Post
 - Small Social media feature for the community people to get to know new people
-- Dark mode for the Website
+  
 
 
 ## Tech Stacks

@@ -122,5 +122,21 @@ public class ReviewService {
         
         reviewRepository.delete(review);
     }
+
+
+    public void removeComment(String comment) {
+
+        System.out.println(comment);
+        System.out.println(comment);System.out.println(comment);System.out.println(comment);System.out.println(comment);System.out.println(comment);System.out.println(comment);System.out.println(comment);
+
+         Optional<Review> reviewOpt = reviewRepository.findBycomment(comment);
+        Review review = reviewOpt.get();
+
+        if (reviewOpt.isEmpty()) {
+            throw new UserNotFoundException("comment Not Found!");
+        }
+
+        reviewRepository.deleteById(review.getId());
+    }
     
 }
